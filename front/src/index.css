@@ -1,59 +1,93 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  top: 0;
+  left: 0;
+  text-align: center;
+  overflow-x: hidden;
+
+  font-family: 'Roboto', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-image: url("./assets/background.jpg");
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
 }
 
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  align-items: center;
+  justify-content: center;
   min-width: 320px;
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/*Mi codigo?*/
+.material-symbols-outlined{
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 36px;
+  transition: 0.12s ease-in-out;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+.material-symbols-outlined:hover{
   cursor: pointer;
-  transition: border-color 0.25s;
+  color: rgba(0, 0, 0, 1);
+  transform: scale(1.14);
 }
-button:hover {
-  border-color: #646cff;
+
+.nav {
+  padding-top: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Asegura que esté en la capa superior */
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+
+input{
+  padding: 0.8em 0 0.8em 0.7em;
+  width: 30%;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+input::placeholder{
+  color:rgba(255, 255, 255, 0.3);
+}
+
+input:focus{
+  padding: 0.8em 0 0.8em 0.7em;
+  border: 1px solid #ccc; /* Vuelve a agregar el borde */
+  outline: none;
+}
+
+input:hover::placeholder{
+  color:rgba(255, 255, 255, 1);
+  transition: color 0.12s ease-in-out;
+}
+
+.botonAdd{
+  position: relative;
+  color:rgba(255, 255, 255, 0.3);
+  transform: translateX(-110%)
+}
+
+.botonAdd:hover{
+  cursor: pointer;
+  color: rgba(255, 255, 255, 1);
+  transform: scale(1) translateX(-110%);
 }
 
 .containerCards{
@@ -63,17 +97,26 @@ button:focus-visible {
   width: 100%;
   justify-content: center;
   gap: 16px;
-  padding: 16px;
-  background-color: red;
+  padding: 20px 40px 20px 0px;
 }
 
 .Card{
-  background-color: white;
+  background-color: rgba(255, 255,255, 0.6);
   color: black;
   padding: 0.7rem;
   border: solid 2px black;
   border-radius: 4px;
+  transition: 0.12s ease-in-out;
+  
 }
+
+.Card:hover{
+  transform: scale(1.015);
+  box-shadow: 5px 9px 5px rgb(37, 37, 37);
+}
+
+
+/*fin de Mi codigo?*/
 
 @media (prefers-color-scheme: light) {
   :root {
