@@ -1,4 +1,6 @@
 :root {
+  --color-nav: gray;
+  --color-enfasis: #3B3B3B;
   top: 0;
   left: 0;
   text-align: center;
@@ -42,7 +44,9 @@ body {
 }
 
 .nav {
-  padding-top: 10px;
+  background-color: var(--color-nav);
+  box-shadow: 0px 8px 7px rgb(80, 80, 80);
+  padding: 10px 0px 12px 0px;
   position: fixed;
   top: 0;
   left: 0;
@@ -115,7 +119,53 @@ input:hover::placeholder{
   box-shadow: 5px 9px 5px rgb(37, 37, 37);
 }
 
+.loginContainer {
+  padding: 1em 3em 2em 3em;
+  border-radius: 3px;
+  background-color: var(--color-nav);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 13px 9px 7px rgb(37, 37, 37);
+}
 
+.loginContainer form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.loginContainer div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.loginContainer input {
+  width: 100%;
+}
+
+.loginContainer button {
+  color:rgba(255, 255, 255, 0.3);
+  border: none;
+  padding: 0.3em;
+  border-radius: 100%;
+  background: var(--color-enfasis);
+  cursor: pointer;
+}
+
+.loginContainer button:hover {
+  color:rgba(255, 255, 255, 1);
+}
+
+.warning{
+  border: solid red 1px;
+}
+
+.danger{
+  color: red;
+}
 /*fin de Mi codigo?*/
 
 @media (prefers-color-scheme: light) {
