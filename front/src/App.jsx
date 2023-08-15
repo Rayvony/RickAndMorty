@@ -35,9 +35,9 @@ function App() {
     <div>
       <SearchBar onSearch={handleSearch} />
       <Routes>
-      <Route path="/" element={<Form login={handleLogin} />} />
-      <Route path="/Cards" element={<Cards characterIds={searchedCharacterIds} onClose={handleClose} />}/>
-      <Route path="/detail/:characterId" element={<Detail />} />
+      <Route path="/form" element={<Form login={handleLogin} />} /> 
+      <Route path="/" element={<Cards characterIds={searchedCharacterIds} onClose={handleClose} />}/>
+      <Route path="/detail/:id" element={<Detail />} />
       </Routes>
     </div>
 

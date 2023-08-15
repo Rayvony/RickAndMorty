@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Card from '../Card/Card';
 import { Link } from 'react-router-dom';
 
-const Cards = ({ characterIds, onClose, onCharacterClick }) => {
+const Cards = ({ characterIds, onClose }) => {
   const [characterDataArray, setCharacterDataArray] = useState([]);
 
   useEffect(() => {
@@ -25,18 +25,14 @@ const Cards = ({ characterIds, onClose, onCharacterClick }) => {
     fetchCharacterDataArray();
   }, [characterIds]);
   
-  const handleCharacterClick = (characterId) => {
-    // Llama a la función onCharacterClick cuando se hace clic en una carta
-    if (onCharacterClick) {
-      onCharacterClick(characterId);
-    }
-  };
+
   
   return (
     <div className="containerCards">
       {characterDataArray.map((characterData, index) => (
-        <Link key={index} to={`/detail/${characterData.id}`}>
           <Card
+            key={characterData.id}
+            id={characterData.id}
             name={characterData.name}
             status={characterData.status}
             species={characterData.species}
@@ -47,9 +43,7 @@ const Cards = ({ characterIds, onClose, onCharacterClick }) => {
             image={characterData.image}
             episode={characterData.episode}
             onClose={() => onClose(characterData.id)}
-            onClick={() => handleCharacterClick(characterData.id)}
           />
-        </Link>
       ))}
     </div>
   );

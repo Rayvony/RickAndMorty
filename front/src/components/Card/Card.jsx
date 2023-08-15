@@ -1,26 +1,35 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux'; // Importa connect
+import { addFav, removeFav } from "../../redux/actions";; // Importa tus acciones
 
-export default function Card(props) {
+function Card(props) {
   const [isCardOpen, setIsCardOpen] = useState(true);
-  const navigate = useNavigate();
+  const [isFav, setIsFav] = useState(false);
 
   const handleCancelClick = () => {
     props.onClose(props.id); // ID cuando se cierra la tarjeta
     setIsCardOpen(false);
   };
 
-  const handleCardClick = () => {
-    // Cuando se hace clic en una tarjeta, redirigir al detalle del personaje con el ID en la URL
-    navigate(`/detail/${props.id}`);
+  const handleFavorite = () => {
+    if (isFav) {
+      props.removeFavorite(props.id); // Usa la función removeFav que recibiste por props
+    } else {
+      props.addFavorite(props); // Usa la función addFav que recibiste por props
+    }
+    setIsFav(!isFav); // Cambia el estado isFav
   };
 
   return (
     <div>
       {isCardOpen && (
-        <div className="Card" onClick={handleCardClick}>
+        <div className="Card">
           <img src={props.image} alt={props.name} />
+          <Link to={`/detail/${props.id}`}>
           <h2>{props.name}</h2>
+          </Link>
+          <p>ID: {props.id}</p>
           <p>Status: {props.status}</p>
           <p>Species: {props.species}</p>
           <p>Type: {props.type}</p>
@@ -31,8 +40,24 @@ export default function Card(props) {
           <span className="material-symbols-outlined" onClick={handleCancelClick}>
             cancel
           </span>
+          {isFav ? (
+            <button onClick={handleFavorite}>❤️</button>
+          ) : (
+            <button onClick={handleFavorite}>🤍</button>
+          )}
         </div>
-      )}
+          )}
     </div>
   );
 }
+
+// Función para mapear dispatch a props
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addFavorite: (character) => dispatch(addFav(character)),
+    removeFavorite: (id) => dispatch(removeFav(id)),
+  };
+};
+
+// Conecta el componente con Redux
+export default connect(null, mapDispatchToProps)(Card);
