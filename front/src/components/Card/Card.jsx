@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { connect } from 'react-redux'; // Importa connect
-import { addFav, removeFav } from "../../redux/actions";; // Importa tus acciones
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { addFav, removeFav } from "../../redux/actions";;
 
 function Card(props) {
   const [isCardOpen, setIsCardOpen] = useState(true);
   const [isFav, setIsFav] = useState(false);
 
   const handleCancelClick = () => {
-    props.onClose(props.id); // ID cuando se cierra la tarjeta
+    props.onClose(props.id); 
     setIsCardOpen(false);
   };
 
   const handleFavorite = () => {
     if (isFav) {
-      props.removeFavorite(props.id); // Usa la función removeFav que recibiste por props
+      props.removeFavorite(props.id);
     } else {
-      props.addFavorite(props); // Usa la función addFav que recibiste por props
+      props.addFavorite(props.id);
     }
-    setIsFav(!isFav); // Cambia el estado isFav
+    setIsFav(!isFav);
   };
 
   return (
@@ -29,7 +29,6 @@ function Card(props) {
           <Link to={`/detail/${props.id}`}>
           <h2>{props.name}</h2>
           </Link>
-          <p>ID: {props.id}</p>
           <p>Status: {props.status}</p>
           <p>Species: {props.species}</p>
           <p>Type: {props.type}</p>
