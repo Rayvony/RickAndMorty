@@ -1,38 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Card from '../Card/Card';
-import { Link } from 'react-router-dom';
 
-const Cards = ({ characterIds, onClose }) => {
-  const [characterDataArray, setCharacterDataArray] = useState([]);
+const Cards = ({onClose, characterDataArray}) => {
 
-  useEffect(() => {
-    
-    const fetchCharacterDataArray = async () => {
-      try {
-        const charactersData = await Promise.all(
-          characterIds.map(async (characterId) => {
-            const response = await fetch(`https://rym2-production.up.railway.app/api/character/${characterId}?key=henrym-rayvony`);
-            const characterData = await response.json();
-            return characterData;
-          })
-        );
-        setCharacterDataArray(charactersData);
-      } catch (error) {
-        console.error('Error fetching characters data:', error);
-      }
-    };
-  
-    fetchCharacterDataArray();
-  }, [characterIds]);
-  
-
-  
   return (
     <div className="containerCards">
-      {characterDataArray.map((characterData, index) => (
+      {characterDataArray.map((characterData) => (
           <Card
             key={characterData.id}
-            id={characterData.id}
             name={characterData.name}
             status={characterData.status}
             species={characterData.species}
@@ -42,7 +17,7 @@ const Cards = ({ characterIds, onClose }) => {
             location={characterData.location}
             image={characterData.image}
             episode={characterData.episode}
-            onClose={() => onClose(characterData.id)}
+            onClose= {onClose}
           />
       ))}
     </div>

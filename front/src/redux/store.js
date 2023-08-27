@@ -1,9 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit';
-import rootReducer from './reducer'; // Ajusta la ruta según tu estructura de archivos
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import reducer from './reducer'
+import { composeWithDevTools } from 'redux-devtools-extension'
 
-const store = configureStore({
-  reducer: rootReducer,
-  // Agrega cualquier configuración adicional que necesites
-});
+
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)))
 
 export default store;

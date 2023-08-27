@@ -1,42 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { addFav, removeFav } from "../../redux/actions";;
+import { useDispatch, useSelector } from 'react-redux';
+import { addFav, removeFav } from "../../redux/actions";
 
-function Card(props) {
-  const [isCardOpen, setIsCardOpen] = useState(true);
+//ahora cuando le doy fav a algo, aparece el corazon rojo en todas las cartas abiertas.
+
+
+function Card({id, onClose, name, status, species, type, gender, origin, location, image, episode}) {
+  
+  const dispatch = useDispatch();
+
   const [isFav, setIsFav] = useState(false);
-
-  const handleCancelClick = () => {
-    props.onClose(props.id); 
-    setIsCardOpen(false);
-  };
+  
+  const myFavs = useSelector((state) => state.myFavorites);
 
   const handleFavorite = () => {
     if (isFav) {
-      props.removeFavorite(props.id);
+      dispatch(removeFav(id));
     } else {
-      props.addFavorite(props.id);
+      dispatch(addFav({id, name, status, species, type, gender, origin, location, image, episode}));
     }
     setIsFav(!isFav);
-  };
+  }
+  useEffect(()=>{
+    myFavs.forEach(charFav => {
+        charFav.id === id && setIsFav(true)
+    })
+  },[myFavs])
+
+
 
   return (
-    <div>
-      {isCardOpen && (
+    <div>     
         <div className="Card">
-          <img src={props.image} alt={props.name} />
-          <Link to={`/detail/${props.id}`}>
-          <h2>{props.name}</h2>
+          <img src={image} alt={name} />
+          <Link to={`/detail/${id}`}>
+          <h2>{name}</h2>
           </Link>
-          <p>Status: {props.status}</p>
-          <p>Species: {props.species}</p>
-          <p>Type: {props.type}</p>
-          <p>Gender: {props.gender}</p>
-          <p>Origin: {props.origin.name}</p>
-          <p>Location: {props.location.name}</p>
-          <p>First appearance: episode {props.episode[0]}</p>
-          <span className="material-symbols-outlined" onClick={handleCancelClick}>
+          <p>Status: {status}</p>
+          <p>Species: {species}</p>
+          <p>Type: {type}</p>
+          <p>Gender: {gender}</p>
+          <p>Origin: {origin.name}</p>
+          <p>Location: {location.name}</p>
+          <p>First appearance: episode {episode[0]}</p>
+          <span className="material-symbols-outlined" onClick={() => onClose(id)}>
             cancel
           </span>
           {isFav ? (
@@ -44,19 +52,9 @@ function Card(props) {
           ) : (
             <button onClick={handleFavorite}>🤍</button>
           )}
-        </div>
-          )}
+        </div>       
     </div>
   );
 }
 
-// Función para mapear dispatch a props
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addFavorite: (character) => dispatch(addFav(character)),
-    removeFavorite: (id) => dispatch(removeFav(id)),
-  };
-};
-
-// Conecta el componente con Redux
-export default connect(null, mapDispatchToProps)(Card);
+export default Card;
