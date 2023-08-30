@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFav, removeFav } from "../../redux/actions";
 
-//ahora cuando le doy fav a algo, aparece el corazon rojo en todas las cartas abiertas.
-
-
 function Card({id, onClose, name, status, species, type, gender, origin, location, image, episode}) {
   
   const dispatch = useDispatch();
@@ -18,7 +15,7 @@ function Card({id, onClose, name, status, species, type, gender, origin, locatio
     if (isFav) {
       dispatch(removeFav(id));
     } else {
-      dispatch(addFav({id, name, status, species, type, gender, origin, location, image, episode}));
+      dispatch(addFav({id, name, status, species, gender, origin, location, image, episode}));
     }
     setIsFav(!isFav);
   }
@@ -39,7 +36,6 @@ function Card({id, onClose, name, status, species, type, gender, origin, locatio
           </Link>
           <p>Status: {status}</p>
           <p>Species: {species}</p>
-          <p>Type: {type}</p>
           <p>Gender: {gender}</p>
           <p>Origin: {origin.name}</p>
           <p>Location: {location.name}</p>

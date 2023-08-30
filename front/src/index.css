@@ -43,7 +43,7 @@ body {
   transform: scale(1.14);
 }
 
-.nav {
+nav {
   background-color: var(--color-nav);
   box-shadow: 0px 8px 7px rgb(80, 80, 80);
   padding: 10px 0px 12px 0px;
@@ -54,11 +54,37 @@ body {
   height: auto;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000; /* Asegura que esté en la capa superior */
+  justify-content: space-between; /* Alinea los elementos a los lados */
+  align-items: center; /* Centra verticalmente */
+  z-index: 600;
 }
 
+.botonesNav {
+  display: flex; /* Asegura que los botones estén en línea */
+}
+
+.botonesNav button {
+  transform: translateY(11%);
+  padding: 0.72em;
+  margin: 5px;
+  width: 100px;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  transition: 0.12s ease-in-out;
+}
+
+.botonesNav button:hover {
+  cursor: pointer;
+  transform: scale(1.02) translateY(11%);
+}
+
+
+.searchBar {
+  width: 60%; /* Ancho del 50% para centrar */
+  position: relative;
+  left: -12%
+}
 
 input{
   padding: 0.8em 0 0.8em 0.7em;
@@ -85,13 +111,13 @@ input:hover::placeholder{
 .botonAdd{
   position: relative;
   color:rgba(255, 255, 255, 0.3);
-  transform: translateX(-110%)
+  transform: translate(-510%, 32%)
 }
 
 .botonAdd:hover{
   cursor: pointer;
   color: rgba(255, 255, 255, 1);
-  transform: scale(1) translateX(-110%);
+  transform: scale(1) translate(-510%, 32%);
 }
 
 .containerCards{

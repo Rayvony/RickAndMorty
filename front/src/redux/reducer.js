@@ -1,47 +1,39 @@
-import { ADD_FAV, REMOVE_FAV, ORDER, FILTER} from './actions'
+import { ADD_FAV, REMOVE_FAV, ORDER, FILTER } from './actionTypes';
 
 const initialState = {
-    myFavorites: [],
-    allCharacters: [],
+  myFavorites: [],
+  allCharacters: [],
+};
 
-  };
-  
-  const reducer = (state = initialState, action) => {
-    switch (action.type) {
-      case ADD_FAV:
-        return {
-          ...state,
-          myFavorites: [...state.myFavorites, action.payload],
-          allCharacters: [...state.allCharacters, action.payload],
+function reducer(state = initialState, {type, payload}){
+  switch(type){
+    case ADD_FAV:
+        return { ...state, myFavorites: payload, allCharacters: payload };
 
-        };
-      case REMOVE_FAV:
-        return {
-          ...state,
-          myFavorites: state.myFavorites.filter(character => character.id !== action.payload),
-          allCharacters: state.allCharacters.filter(character => character.id !== action.payload),
-        };
+    case REMOVE_FAV:
+            return { ...state, myFavorites: payload };
+
       case FILTER:
-        return{
-          ...state,
-          allCharacters: state.myFavorites.filter(character => character.gender == action.payload),
-        }
-      case ORDER:
-        if(action.payload == "A"){
-          return{
-            ...state,
-            allCharacters: state.allCharacters.sort((a, b ) => a.id - b.id),
-          }  
-        }else if(action.payload == "D"){
-          return{
-            ...state,
-            allCharacters: state.allCharacters.sort((a, b ) => b.id - a.id),
+          const filtered = state.allCharacters.filter(char => char.gender === payload  )
+          return {
+              ...state,
+              myFavorites: payload === 'Todos' ? state.allCharacters : filtered
           }
-        }
+
+      case ORDER:
+          const orderCharacter = state.myFavorites.sort((a,b)=>{
+              if(payload === 'A') return a.id - b.id
+              return b.id - a.id
+          })
+          return{
+              ...state,
+              myFavorites:[...orderCharacter]
+          }
       default:
-        return {...state};
-    }
-  };
-  
-  export default reducer;
+          return {...state}
+  }
+}
+
+export default reducer;
+
   

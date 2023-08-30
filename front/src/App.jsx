@@ -4,28 +4,29 @@ import Nav from './components/Nav/Nav';
 import Form from './components/Form/Form';
 import Detail from './components/Detail/Detail';
 import Favorite from './components/Favorite/Favorite';
-import { Routes, Route} from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import axios from "axios";
+const URL = 'http://localhost:3001/rickandmorty/login/';
 
 function App() {
   const [searchedCharacterIds, setSearchedCharacterIds] = useState([]);
   const [characterDataArray, setCharacterDataArray] = useState([]);
+  const [access, setAccess] = useState(false);
+  const navigate = useNavigate();
 
-  const onSearch = (id) =>{
-
-    if(!id) return alert('Ingresa un Id numérico')
-    if(characterDataArray.some(char => char.id === parseInt(id))){
-      alert(`Ya existe el personaje con el id ${id}`)
-      return
+  const onSearch = async (id) => {
+    try {
+      const { data } = await axios.get(`http://localhost:3001/rickandmorty/character/${id}`)
+  
+        if(data.name && !characterDataArray.some(char => char.id === parseInt(id))){
+          setCharacterDataArray(prevChars => [...prevChars, data])
+        };
+      
+    } catch (error) {
+      alert("No hay personajes con ese ID")
+      
     }
 
-    axios(`https://rym2-production.up.railway.app/api/character/${id}?key=henrym-rayvony`)
-    .then(({data}) => {
-      if(data.name){
-        setCharacterDataArray(prevChars => [...prevChars, data])
-      }
-    })
-    .catch(err => alert(err.response.data.error))
   }
   
   const onClose = (characterId) => {
@@ -33,20 +34,28 @@ function App() {
     setCharacterDataArray((prevIds) => prevIds.filter(character => character.id !== characterId));
   };
 
-  const handleLogin = (userData) => {
-    // Aquí lógica de inicio de sesión, validar los datos
-    console.log('Intento de inicio de sesión:', userData);
-    // redirigir a otra página después del inicio de sesión exitoso
-    navigate('/cards');
-  };
+  const handleLogin = async (userData) => {
+    try {
+      const { email, password } = userData;
+      const { data } = await axios(URL + `?email=${email}&password=${password}`)
+      const { access } = data;
+
+      setAccess(access);
+      access && navigate('/home');
+
+      
+    } catch (error) {
+      console.log(error.message)
+    }
+ }
 
 
   return (
     <div>
       <Nav onSearch={onSearch} />
       <Routes>
-      <Route path="/form" element={<Form login={handleLogin} />} /> 
-      <Route path="/" element={<Cards onClose={onClose} characterDataArray={characterDataArray}/>}/>
+      <Route path="/" element={<Form login={handleLogin} />} /> 
+      <Route path="/home" element={<Cards onClose={onClose} characterDataArray={characterDataArray}/>}/>
       <Route path="/detail/:id" element={<Detail />} />
       <Route path="/favorite" element={<Favorite/>}/>
       </Routes>

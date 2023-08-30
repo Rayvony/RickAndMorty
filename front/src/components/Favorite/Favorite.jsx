@@ -1,13 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '../Card/Card';
 import { useSelector, useDispatch } from "react-redux";
 import { addFav, removeFav, filter, order } from "../../redux/actions";
 
-//creo que esta pero falla {allCharacters.map((characterData) => ( en la linea 40, ni idea aura usaba connect. stefano no me pegues por favor
-
-
-const Favorite = ({onClose}) => {
-    const {myFavorites, allCharacters} = useSelector((state) => state.myFavorites);
+const Favorite = ({ onClose }) => {
+    const myFavs = useSelector((state) => state.myFavorites);
     const dispatch = useDispatch();
 
     const handleFilter = (evento) => {
@@ -17,19 +14,19 @@ const Favorite = ({onClose}) => {
     const handleOrder = (evento) => {
         dispatch(order(evento.target.value))
     }
-    
+
     return (
         <div>
             <div>
-                <select name='filter' onChange={handleFilter} defaultValue={"douuu"}>
-                    <option value="douuu" disabled="disabled">Genero?</option>
+                <select name='filter' onChange={handleFilter} defaultValue={"Todos"}>
+                    <option value="Todos" >Genero?</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="Genderless">Genderless</option>
                     <option value="unkown">Unkown</option>
                 </select>
 
-                <select name='order' onChange={handleOrder} defaultValue={"douuu"}>
+                <select name='order' onChange={handleOrder} defaultValue={"A"}>
                 <option value="douuu" disabled="disabled">Orden?</option>
                     <option value="A">Ascendente</option>
                     <option value="D">Descendente</option>
@@ -37,7 +34,7 @@ const Favorite = ({onClose}) => {
             </div>
 
             <div className="containerCards">
-            {allCharacters.map((characterData) => (
+            {myFavs.map((characterData) => (
                 <Card
                 id={characterData.id}
                 name={characterData.name}

@@ -3,28 +3,28 @@ import SearchBar from "../SearchBar/SearchBar";
 import { NavLink } from "react-router-dom";
 
 function Nav({onSearch}){
-
     return (
-    <div>
-        <div>
+        <nav className="nav">
+          <div className="botonesNav">
             <NavLink to="/">
-                <button>Home</button>
+              <button>Home</button>
             </NavLink>
-
+      
             <NavLink to="/about">
-                <button>About</button>
+              <button>About</button>
             </NavLink>
-
+      
             <NavLink to="/favorite">
-                <button>Favorites</button>
+              <button>Favorites</button>
             </NavLink>
-        </div>
-
-        <div>
-            <SearchBar onSearch={onSearch}/>
-        </div>
-    </div>
-    )
+          </div>
+        
+          <div className="searchBar">
+            <SearchBar onSearch={onSearch} />
+          </div>
+          {/* filtro */}
+        </nav>
+      );
 }
 
 export default Nav
