@@ -47,20 +47,20 @@ nav {
   background-color: var(--color-nav);
   box-shadow: 0px 8px 7px rgb(80, 80, 80);
   padding: 10px 0px 12px 0px;
-  position: fixed;
   top: 0;
   left: 0;
+  display: flex;
+  position: fixed;
+  z-index: 600;
   width: 100%;
   height: auto;
-  display: flex;
   flex-direction: row;
-  justify-content: space-between; /* Alinea los elementos a los lados */
-  align-items: center; /* Centra verticalmente */
-  z-index: 600;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .botonesNav {
-  display: flex; /* Asegura que los botones estén en línea */
+  display: flex;
 }
 
 .botonesNav button {

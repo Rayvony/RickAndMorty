@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFav, removeFav } from "../../redux/actions";
 
-function Card({id, onClose, name, status, species, type, gender, origin, location, image, episode}) {
+function Card({id, onClose, name, status, species, gender, origin, location, image, episode}) {
   
   const dispatch = useDispatch();
 
   const [isFav, setIsFav] = useState(false);
-  
   const myFavs = useSelector((state) => state.myFavorites);
-
+  
   const handleFavorite = () => {
     if (isFav) {
       dispatch(removeFav(id));

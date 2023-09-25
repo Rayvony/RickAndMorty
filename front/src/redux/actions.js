@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADD_FAV, REMOVE_FAV, FILTER, ORDER } from "./actionTypes"
+import { ADD_FAV, REMOVE_FAV, FILTER, ORDER, AUX } from "./actionTypes"
 
 export const addFav = (character) => {
   const endpoint = 'http://localhost:3001/rickandmorty/fav';
@@ -50,5 +50,19 @@ export const order = (payload) => ({
   payload
 })
 
+export const aux = () => async (dispatch) => {
+  const endpoint = 'http://localhost:3001/rickandmorty/aux';
+  try {
+    const response = await axios.get(endpoint);
+    const data = response.data;
+
+    dispatch({
+      type: AUX,
+      payload: data,
+    });
+  } catch (error) {
+    console.error('Error fetching aux data:', error);
+  }
+};
 
   

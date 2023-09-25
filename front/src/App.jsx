@@ -1,11 +1,14 @@
-import React, {useState} from 'react';
-import Cards from "./components/Cards/Cards";
-import Nav from './components/Nav/Nav';
-import Form from './components/Form/Form';
-import Detail from './components/Detail/Detail';
-import Favorite from './components/Favorite/Favorite';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { useDispatch } from 'react-redux';
+import { aux } from "../src/redux/actions";
+import Nav from './components/Nav/Nav';
+import Form from './components/Form/Form';
+import Cards from "./components/Cards/Cards";
+import Detail from './components/Detail/Detail';
+import Favorite from './components/Favorite/Favorite';
+
 const URL = 'http://localhost:3001/rickandmorty/login/';
 
 function App() {
@@ -13,6 +16,11 @@ function App() {
   const [characterDataArray, setCharacterDataArray] = useState([]);
   const [access, setAccess] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(aux());
+  }, []);
 
   const onSearch = async (id) => {
     try {
@@ -23,8 +31,7 @@ function App() {
         };
       
     } catch (error) {
-      alert("No hay personajes con ese ID")
-      
+       alert("No hay personajes con ese ID")  
     }
 
   }
